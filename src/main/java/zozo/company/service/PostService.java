@@ -1,11 +1,13 @@
 package zozo.company.service;
 
+import org.springframework.stereotype.Service;
 import zozo.company.exception.NotFoundException;
 import zozo.company.model.Post;
 import zozo.company.repository.PostRepository;
 
 import java.util.List;
 
+@Service
 public class PostService {
     private final PostRepository repository;
 
