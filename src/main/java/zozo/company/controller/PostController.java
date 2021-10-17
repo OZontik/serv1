@@ -1,6 +1,7 @@
 package zozo.company.controller;
 
 import com.google.gson.Gson;
+import org.springframework.stereotype.Controller;
 import zozo.company.model.Post;
 import zozo.company.service.PostService;
 
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Reader;
 
+
+@Controller
 public class PostController {
   public static final String APPLICATION_JSON = "application/json";
   private final PostService service;
@@ -24,7 +27,7 @@ public class PostController {
   }
 
   public void getById(long id, HttpServletResponse response) {
-
+    // TODO: deserialize request & serialize response
   }
 
   public void save(Reader body, HttpServletResponse response) throws IOException {
@@ -36,6 +39,6 @@ public class PostController {
   }
 
   public void removeById(long id, HttpServletResponse response) {
-
+    // TODO: deserialize request & serialize response
   }
 }
