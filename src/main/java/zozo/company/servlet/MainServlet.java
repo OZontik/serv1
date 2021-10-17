@@ -1,5 +1,6 @@
 package zozo.company.servlet;
 
+import zozo.company.config.JavaConfig;
 import zozo.company.controller.PostController;
 import zozo.company.repository.PostRepository;
 import zozo.company.service.PostService;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 public class MainServlet extends HttpServlet {
   public static final String ENDPOINT = "/api/posts";
   public static final String BORDER = "/";
@@ -17,9 +20,17 @@ public class MainServlet extends HttpServlet {
 
   @Override
   public void init() {
-    final var repository = new PostRepository();
-    final var service = new PostService(repository);
-    controller = new PostController(service);
+    final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
+
+
+    controller = (PostController) context.getBean("postController");
+
+
+    final var service = context.getBean(PostService.class);
+
+
+    final var isSame = service == context.getBean("postService");
+
   }
 
   @Override
@@ -31,7 +42,7 @@ public class MainServlet extends HttpServlet {
       return;
     }
     if (path.matches(ENDPOINT + "\\d+")) {
-
+      // easy way
       final var id = Long.parseLong(path.substring(path.lastIndexOf(BORDER)));
       controller.getById(id, resp);
       return;
